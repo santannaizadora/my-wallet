@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Home() {
     const [transactions, setTransactions] = useState([]);
     const [balance, setBalance] = useState(0);
+    const navigate = useNavigate();
     useEffect(() => {
         axios.get('http://localhost:5000/transactions', {
             headers: {
@@ -30,7 +31,15 @@ export default function Home() {
         <Container>
             <User>
                 <h1>Olá, {localStorage.getItem('user')}</h1>
-                <ion-icon name="log-out-outline"></ion-icon>
+                <ion-icon 
+                name="log-out-outline"
+                onClick={() => {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                    navigate('/');
+                }
+                }
+                ></ion-icon>
             </User>
             <TransactionsContainer>
                 <Transactions>
