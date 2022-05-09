@@ -36,7 +36,7 @@ export default function Entries() {
     const navigate = useNavigate();
     const onSubmit = () => {
         setIsSubmitting(true);
-        axios.post('http://localhost:5000/transactions', {
+        axios.post('https://git.heroku.com/my-wallet-api-iza.git/transactions', {
             ...formData,
             type: `${transactionType === 'entradas' ? 'deposit' : 'withdraw'}`
         }, {

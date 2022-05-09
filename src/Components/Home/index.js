@@ -9,7 +9,7 @@ export default function Home() {
     const [balance, setBalance] = useState(0);
     const navigate = useNavigate();
     useEffect(() => {
-        axios.get('http://localhost:5000/transactions', {
+        axios.get('https://git.heroku.com/my-wallet-api-iza.git/transactions', {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
