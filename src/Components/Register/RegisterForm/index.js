@@ -22,7 +22,7 @@ export default function LogonForm(props) {
     }
     const onSubmit = () => {
         setIsSubmitting(true);
-        axios.post('https://git.heroku.com/my-wallet-api-iza.git/register', formData)
+        axios.post('https://my-wallet-api-iza.herokuapp.com/register', formData)
             .then(res => {
                 toast.success('Usuário cadastrado com sucesso!', {
                     position: "top-right",
