@@ -8,17 +8,19 @@ import { toast } from 'react-toastify';
 import { ThreeDots } from "react-loader-spinner";
 
 
-export default function Entries(){
+export default function Entries() {
     const url = window.location.href;
     const urlArray = url.split('/');
-    const transactionType = urlArray[urlArray.length - 1]; 
+    const transactionType = urlArray[urlArray.length - 1];
+    console.log(transactionType);
     const [formData, setFormData] = useState([
         {
             amount: 0,
-            description: '',
-            type: `${transactionType === 'entradas' ? 'deposit' : 'withdraw'}`
+            description: ''
         }
     ]);
+
+    console.log(formData)
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const { register, formState: { errors }, handleSubmit } = useForm({
@@ -34,7 +36,10 @@ export default function Entries(){
     const navigate = useNavigate();
     const onSubmit = () => {
         setIsSubmitting(true);
-        axios.post('http://localhost:5000/transactions', formData, {    
+        axios.post('http://localhost:5000/transactions', {
+            ...formData,
+            type: `${transactionType === 'entradas' ? 'deposit' : 'withdraw'}`
+        }, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -73,10 +78,10 @@ export default function Entries(){
             )
     }
 
-    
-    return(
+
+    return (
         <Container>
-            <h1>Nova {transactionType === 'entradas'? 'entrada': 'saída'}</h1>
+            <h1>Nova {transactionType === 'entradas' ? 'entrada' : 'saída'}</h1>
             <Form onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
                 <Input
                     {...register("amount", {
@@ -136,7 +141,7 @@ export default function Entries(){
                         ?
                         <ThreeDots color="#FFF" height={50} width={50} />
                         :
-                        `Salvar ${transactionType === 'entradas'? 'entrada': 'saída'}`
+                        `Salvar ${transactionType === 'entradas' ? 'entrada' : 'saída'}`
                     }
                 </Button>
             </Form>

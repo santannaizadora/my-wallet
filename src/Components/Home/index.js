@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
     const [transactions, setTransactions] = useState([]);
@@ -41,7 +42,7 @@ export default function Home() {
                                         <Day>{dayjs(transaction.createdAt).format("DD/MM")}</Day>
                                         <Description>{transaction.description}</Description>
                                     </div>
-                                    <Amount type={transaction.type}>{transaction.amount.toFixed(2).toString().replace('.', ',')}</Amount>
+                                    <Amount type={transaction.type}>{transaction.amount}</Amount>
                                 </Transaction>
                             )
                         })
@@ -50,18 +51,22 @@ export default function Home() {
                 </Transactions>
                 <Balance>
                     <h2>SALDO</h2>
-                    <BalanceValue value={balance}>{balance.toFixed(2).toString().replace('.', ',')}</BalanceValue>
+                    <BalanceValue value={balance}>{balance}</BalanceValue>
                 </Balance>
             </TransactionsContainer>
             <Entries>
+                <Link to="/entradas">
                 <Entry>
                     <ion-icon name="add-circle-outline"></ion-icon>
                     <p>Nova entrada</p>
                 </Entry>
+                </Link>
+                <Link to="/saidas">
                 <Entry>
                     <ion-icon name="remove-circle-outline"></ion-icon>
                     <p>Nova saída</p>
                 </Entry>
+                </Link>
             </Entries>
         </Container>
     );
@@ -114,6 +119,9 @@ const Transactions = styled.div`
         width: 180px;
         height: 46px;
         text-align: center;
+        align-self: center;
+        margin-right: 20px;
+        margin-top: 170px;
     }
 `;
 
